@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objętość Treningowa</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.sheetjs.com/xlsx-0.18.5/package/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Obliczanie Objętości Treningowej</h1>
+        <div class="form-group">
+            <label for="training">Wybierz Rodzaj Treningu:</label>
+            <select id="training">
+                <option value="strength">Trening Siłowy</option>
+                <option value="zone2">Bieg Zone 2 Cardio</option>
+                <option value="vo2max">VO2 Max Row</option>
+                <option value="throwing">Trening Rzutowy</option>
+            </select>
+        </div>
+        <div id="strength-training" class="training-section">
+            <div class="form-group">
+                <label for="exercise">Wybierz Ćwiczenie:</label>
+                <select id="exercise"></select>
+            </div>
+            <div class="form-group">
+                <label for="series">Liczba Serii:</label>
+                <input type="number" id="series" min="1" value="1">
+                <button id="set-series">Zatwierdź Liczbę Serii</button>
+            </div>
+            <div id="series-inputs-container"></div>
+            <button id="add-exercise" disabled>Dodaj Ćwiczenie</button>
+        </div>
+        <div id="zone2-training" class="training-section" style="display: none;">
+            <div class="form-group">
+                <label for="run-time">Czas Biegu (min:sek):</label>
+                <input type="text" id="run-time" placeholder="np. 30:45">
+            </div>
+            <div class="form-group">
+                <label for="distance">Dystans (km.m):</label>
+                <input type="number" id="distance" step="0.01" placeholder="np. 5.00">
+            </div>
+            <div class="form-group">
+                <label for="hr-average">Średnie Tętno:</label>
+                <input type="number" id="hr-average" placeholder="np. 150">
+            </div>
+            <div class="form-group">
+                <label for="pace">Tempo (min:sek/km):</label>
+                <input type="text" id="pace" placeholder="np. 5:30">
+            </div>
+            <button id="calculate-run">Oblicz Objętość Biegu</button>
+        </div>
+        <div id="vo2max-training" class="training-section" style="display:none;">
+            <label for="row-series">Liczba serii:</label>
+            <input type="number" id="row-series" min="1" />
+            <button id="set-row-series">Ustaw serie</button>
+            <div id="row-series-inputs-container"></div>
+            <button id="calculate-row" disabled>Oblicz objętość</button>
+        </div>
+        <div id="throwing-training" class="training-section" style="display: none;">
+            <div class="form-group">
+                <label for="throws">Ilość rzutów:</label>
+                <input type="number" id="throws" min="1" value="1">
+            </div>
+            <div class="form-group">
+                <label for="rotations">Ilość obrotów:</label>
+                <input type="number" id="rotations" min="1" value="1">
+            </div>
+            <div class="form-group">
+                <label for="hammer-weight">Ciężar młota (kg):</label>
+                <select id="hammer-weight">
+                    <option value="6">6 kg</option>
+                    <option value="7.26">7.26 kg</option>
+                    <option value="8">8 kg</option>
+                    <option value="9">9 kg</option>
+                </select>
+            </div>
+            <button id="calculate-throw">Oblicz Objętość Rzutu</button>
+        </div>
+        <table id="volume-table">
+            <thead>
+                <tr>
+                    <th>Rodzaj Treningu</th>
+                    <th>Szczegóły</th>
+                    <th>Objętość</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <div id="final-volume-container">
+            <h2>Końcowa Objętość Treningowa</h2>
+            <table id="final-volume-table">
+                <thead>
+                    <tr>
+                        <th>Rodzaj Treningu</th>
+                        <th>Objętość</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <button id="download-excel">Pobierz Wyniki w Formacie Excel</button>
+        <div id="volume-result"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
